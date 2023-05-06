@@ -62,14 +62,17 @@
         }
     }
 
-    function textToArray(string){
-        let array = string.split(" ");
+    function textToArray(string){// Figure a better split, or replace
+        string = string.replace(/[^\w\d]/g, " ");
+        let array = string.split(/[\s ,]/);
         array = array.filter(string => string != "" && string != "\n")
         return array;
     }
 
-    function sortArray(array){
+    function sortArray(array){ // Replace this with a sort we learned
         let sortedArray = array.sort();
+        sortedArray = array.sort((a,b)=> a-b);
+        
         sortedArray = [...new Set(sortedArray)]
         return sortedArray;
     }
@@ -94,5 +97,19 @@
         array = sortArray(array);
         arrayToPage(array)
     })
+
+    function quickSort(arr){
+        let pivot = arr[arr.length - 1]
+        let left = [];
+        let right = [];
+        for(let i = 0; arr.length -1; i++){
+            if(arr[i]<pivot){
+                left.push(arr[i])
+            } else {
+                right.push(arr[i])
+            }
+        }
+        return [...quickSort(left), pivot, ...quickSort(right)]
+    }
 
 </script>

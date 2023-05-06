@@ -70,6 +70,7 @@
 
     function sortArray(array){
         let sortedArray = array.sort();
+        sortedArray = [...new Set(sortedArray)]
         return sortedArray;
     }
 

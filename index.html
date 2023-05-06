@@ -1,0 +1,97 @@
+<style>
+    .word{
+        padding: 1rem 2rem;
+        background: #cfcece;
+        border-radius: 5px;
+    }
+    #sorted{
+        min-width: 30%;
+        width: 600px;
+        max-width: 70%;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+    }
+    body{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .input{
+        min-width: 30%;
+        width: 600px;
+        max-width: 70%;
+        display: grid;
+        grid-template-rows: 10fr 1fr;
+    }
+    .output{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-top: 2px solid black;
+        width: 100%;
+    }
+</style>
+<body>
+    <section class="input">
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button>SORT</button>
+    </section>
+    <section class="output">
+        <section id="sorted">
+    
+        </section>
+    </section>
+</body>
+<script>
+    // take words from text area 
+    // sort words 
+    // put sorted words back onto the page
+    const textarea = document.querySelector("textarea");
+    const sortedArea = document.querySelector("#sorted");
+
+    function grabText(){
+        if(textarea.value.length > 0){
+            return textarea.value;
+        } else {
+            return "Found No Text"
+        }
+    }
+
+    function textToArray(string){
+        let array = string.split(" ");
+        array = array.filter(string => string != "" && string != "\n")
+        return array;
+    }
+
+    function sortArray(array){
+        let sortedArray = array.sort();
+        return sortedArray;
+    }
+
+    function arrayToPage(textArray){
+        for (let index = 0; index < textArray.length; index++) {
+            const word = textArray[index];
+            
+            let element = document.createElement("div");
+            let text = document.createTextNode(word);
+            element.appendChild(text);
+            element.classList.add("word");
+            sortedArea.appendChild(element);
+        }
+    }
+
+    const button = document.querySelector("button");
+    button.addEventListener("click", e=>{
+        sortedArea.innerHTML = "";
+        let text = grabText();
+        let array = textToArray(text);
+        array = sortArray(array);
+        arrayToPage(array)
+    })
+
+</script>
